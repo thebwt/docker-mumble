@@ -7,8 +7,6 @@ services:
                 volumes_from: 
                         - data_volume
                 ports:
-                        - "64739:64739"
-                        - "64739:64739/udp"
                         - "64738:64738"
                         - "64738:64738/udp"
                 restart: always
