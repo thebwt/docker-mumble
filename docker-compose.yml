@@ -1,0 +1,9 @@
+version: '2'
+services:
+        head:
+                build: mumble-head
+                depends_on: mumble-volume
+                volumes_from: mumble-volume
+        data_volume:
+                build: mumble-volume
+
