@@ -2,8 +2,13 @@ version: '2'
 services:
         head:
                 build: mumble-head
-                depends_on: mumble-volume
-                volumes_from: mumble-volume
+                depends_on: 
+                        - data_volume
+                volumes_from: 
+                        - data_volume
+                ports:
+                        - "64738:64738"
+                        - "64739:64739"
         data_volume:
                 build: mumble-volume
 
