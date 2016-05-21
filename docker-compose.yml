@@ -9,6 +9,8 @@ services:
                 ports:
                         - "64738:64738"
                         - "64739:64739"
+                restart: always
+
         data_volume:
                 build: mumble-volume
 
