@@ -1,8 +1,22 @@
-FROM php:5.6-apache
+From django:1.8.1-python2
 
 RUN apt-get update && apt-get install -y \
-    php-zeroc-ice \
+    python-zeroc-ice \
+    python-imaging \
+    python-simplejson \
+    mercurial \
+    python-pil \
+    build-essential \
+    python-dev \
+    libjpeg-dev \
+    libpng3 \
+    libfreetype6-dev \
+    libbz2-dev \
  && rm -rf /var/lib/apt/lists/*
 
-COPY src/ /var/www/html/
-RUN chown -R www-data:www-data /var/www/html
+RUN pip install Pillow zeroc-ice
+
+COPY inputs /root/inputs
+
+RUN cd /usr/src && hg clone http://bitbucket.org/Svedrin/mumble-django && mv mumble-django app
+RUN cd /usr/src/app && hg update stable

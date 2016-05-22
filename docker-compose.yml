@@ -10,6 +10,8 @@ services:
                         - data_volume
                 volumes_from: 
                         - data_volume
+                volumes:
+                        - /usr/share/slice/
                 ports:
                         - "64738:64738"
                         - "64738:64738/udp"
@@ -23,6 +25,8 @@ services:
         web:
                 build:
                         mumble-web
+                volumes_from:
+                        - head
                 depends_on:
                         - head
                 ports:
@@ -30,3 +34,4 @@ services:
                 restart: always
                 networks:
                         - ice
+                command: python /usr/src/app/pyweb/manage.py runserver 0.0.0.0:80
