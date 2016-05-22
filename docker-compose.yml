@@ -1,4 +1,8 @@
 version: '2'
+
+networks:
+        ice:
+
 services:
         head:
                 build: mumble-head
@@ -10,6 +14,8 @@ services:
                         - "64738:64738"
                         - "64738:64738/udp"
                 restart: always
+                networks:
+                        - ice
 
         data_volume:
                 build: mumble-volume
