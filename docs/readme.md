@@ -2,7 +2,10 @@ I'm going to take general mumble notes here so that when I have to actually work
 
 
 #Web Interface config
+So it mostly just works, but you have to manually bootstrap the django db.
 
-##Modules to be Installed
-*php-zeroc-ice
-...This thing is a pain to configure. You need to convert some kind of server.ice thing to a php file. Will note exact steps.
+Once everything is online:
+-docker exec -it <name of webhead container> bash
+-cd /usr/src/app/pyweb
+-python manage.py syncdb
+-- When it asks about the ice/dbus thing, enter Meta:tcp -h head -p 6502, no secret; and your good to go.
