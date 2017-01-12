@@ -1,37 +1,35 @@
 version: '2'
 
 networks:
-        ice:
+   ice:
 
+volumes:
+    slice:
+    mumble-data:
+        
 services:
-        head:
-                build: mumble-head
-                depends_on: 
-                        - data_volume
-                volumes_from: 
-                        - data_volume
-                volumes:
-                        - /usr/share/slice/
-                ports:
-                        - "64738:64738"
-                        - "64738:64738/udp"
-                restart: always
-                networks:
-                        - ice
 
-        data_volume:
-                build: mumble-volume
-
-        web:
-                build:
-                        mumble-web
-                volumes_from:
-                        - head
-                depends_on:
-                        - head
-                ports:
-                        - "80:80"
-                restart: always
-                networks:
-                        - ice
-                command: python /usr/src/app/pyweb/manage.py runserver 0.0.0.0:80
+   head:
+       build: mumble-head
+       volumes: 
+           - mumble-data:/mumble
+           - slice:/usr/share/slice/
+       ports:
+           - "64738:64738"
+           - "64738:64738/udp"
+       restart: always
+       networks:
+           - ice
+   web:
+       build: mumble-web
+       volumes:
+           - mumble-data:/mumble
+           - slice:/usr/share/slice
+       volumes_from:
+           - head
+       ports:
+           - "80:80"
+       restart: always
+       networks:
+           - ice
+       command: python /usr/src/app/pyweb/manage.py runserver 0.0.0.0:80
